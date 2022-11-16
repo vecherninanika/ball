@@ -74,11 +74,11 @@ class Ball:
         Raises:
             InvalidAttributeError : if speed or time are less than zero.
         """
-        speed = acceleration * time
         if not isinstance(acceleration, (int, float)) or not isinstance(time, (int, float)):
             raise InvalidAttributeError('Attributes can be only int or float.')
-        elif time < 0 or speed < 0:
+        elif time < 0 or acceleration < 0:
             raise InvalidAttributeError('Attributes cannot be less than zero.')
+        speed = acceleration * time
         return self.angle_from_even(speed, time)
 
     def is_valid(self):
