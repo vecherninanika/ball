@@ -39,7 +39,7 @@ class Ball:
             raise InvalidAttributeError('Ball cannot be built with this radius.')
 
     def angle_from_even(self, speed: float, time: float) -> float:
-        """Evaluate the angle of ball`s even movement.
+        """Evaluate the angle of ball`s even movement. Round the result to 2 decimal places.
 
         Args:
             speed : float - speed of the ball in centimetres per second
@@ -51,9 +51,11 @@ class Ball:
         Raises:
             InvalidAttributeError : if speed or time are less than zero.
         """
-        len_bow = speed * time
-        if time < 0 or speed < 0:
+        if not isinstance(speed, (int, float)) or not isinstance(time, (int, float)):
+            raise InvalidAttributeError('Attributes can be only int or float.')
+        elif time < 0 or speed < 0:
             raise InvalidAttributeError('Attributes cannot be less than zero.')
+        len_bow = speed * time
         angle = round(len_bow / self.radius, 2)
         if angle >= FLAT_ANGLE:
             return FLAT_ANGLE - angle % FLAT_ANGLE
@@ -73,7 +75,9 @@ class Ball:
             InvalidAttributeError : if speed or time are less than zero.
         """
         speed = acceleration * time
-        if time < 0 or speed < 0:
+        if not isinstance(acceleration, (int, float)) or not isinstance(time, (int, float)):
+            raise InvalidAttributeError('Attributes can be only int or float.')
+        elif time < 0 or speed < 0:
             raise InvalidAttributeError('Attributes cannot be less than zero.')
         return self.angle_from_even(speed, time)
 
